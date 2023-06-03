@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #27374d;
+}
+
+.btn-back {
+  width: 100%;
+  display: flex;
+  margin-top: 1rem;
+  align-items: start;
+}
+.btn-back button {
+  margin-left: 1rem;
+}
+
+.container {
+  margin-top: 3rem;
+  border-radius: 2%;
+  width: 25%;
+  height: 350px;
+  background: #415b80;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/*# sourceMappingURL=patientMenu.css.map */
