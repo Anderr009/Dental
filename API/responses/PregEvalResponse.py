@@ -29,3 +29,4 @@ def PregEvResponse(request):
         pregEv = Pregunta_Evaluacion(**objPregEv)
         pregEv.save()
         return Response({'mensaje':'creado'},status=status.HTTP_201_CREATED)
+        
