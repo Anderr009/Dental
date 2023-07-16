@@ -16,6 +16,7 @@ class Cliente(models.Model):
 
 class Evaluacion(models.Model):
     cod_ev = models.AutoField(primary_key=True)
+    cod_cl = models.ForeignKey(Cliente,on_delete=models.CASCADE,null=True)
     fecha = models.DateField(db_column="Fecha",default=now)
     plan_tratamiento = models.TextField(db_column="Tratamiento",null=False)
     class Meta:
@@ -37,12 +38,13 @@ class Pregunta(models.Model):
 class Pregunta_Evaluacion(models.Model):
     cod = models.AutoField(primary_key=True)
     fk_ev  = models.ForeignKey(Evaluacion,on_delete=models.CASCADE)
-    fk_pregunta  = models.ForeignKey(Pregunta,on_delete=models.CASCADE)    
+    fk_pregunta  = models.ForeignKey(Pregunta,on_delete=models.CASCADE)  
+    respuesta = models.TextField(null=True)  
     #----Clase Meta
     class Meta:
         db_table='Pregunta_Evaluacion'
 # Tabla intermedia
-class Eval_Proced:
+class Eval_Proced(models.Model):
     cod = models.AutoField(primary_key=True)
     cod_proc = models.ForeignKey(Procedimiento,on_delete=models.CASCADE)
     cod_eval = models.ForeignKey(Evaluacion,on_delete=models.CASCADE)

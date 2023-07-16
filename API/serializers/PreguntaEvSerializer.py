@@ -10,4 +10,4 @@ class PregEvSerializer(serializers.ModelSerializer):
     fk_pregunta = PreguntaInfo()
     class Meta:
         model = Pregunta_Evaluacion
-        fields = ['cod','fk_ev','fk_pregunta']
+        fields = ['cod','fk_ev','fk_pregunta','respuesta']

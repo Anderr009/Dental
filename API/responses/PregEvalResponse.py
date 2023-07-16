@@ -21,10 +21,11 @@ def PregEvResponse(request):
     if request.method == 'POST':
         data = loads(request.body)
         fk_preg = Pregunta.objects.get(cod=data['cod_preg']) #cod_preg es el primer parametro
-        fk_ev = Evaluacion.objects.get(cod_ev=data['cod_ev']) #ese es el segundo parametro 
+        fk_ev = Evaluacion.objects.get(cod_ev=data['cod_ev']['mensaje']) #ese es el segundo parametro 
         objPregEv = {
             'fk_ev':fk_ev,
-            'fk_pregunta':fk_preg
+            'fk_pregunta':fk_preg,
+            'respuesta': data['respuesta']
         }
         pregEv = Pregunta_Evaluacion(**objPregEv)
         pregEv.save()

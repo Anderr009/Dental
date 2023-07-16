@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from django.core.exceptions import ObjectDoesNotExist
 from API.serializers.EvaluacionSerializer import EvaluacionSerializer
-from API.models import Evaluacion
+from API.models import Evaluacion,Cliente
 import json
 
 
@@ -12,9 +12,11 @@ import json
 def EvaluacionResponse(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        ev = Evaluacion(**data)
+        cl = Cliente.objects.get(id =data['cod_cl'])
+        ev = Evaluacion(cod_cl= cl,plan_tratamiento =data['plan_tratamiento'])
         ev.save()
-        return Response({'mensaje':'creado'},status=status.HTTP_201_CREATED)
+        cod = ev.cod_ev
+        return Response({'mensaje':cod},status=status.HTTP_201_CREATED)
     #- En caso de que la peticion sea Delete
     if request.method == 'DELETE':
         data = request.body.decode('utf-8')
@@ -33,12 +35,9 @@ def EvaluacionResponse(request):
         ev.save()
         return Response({"msj":"Actualizado correctamente"},status=status.HTTP_201_CREATED)
     if request.method == 'GET':
-        #se le debe pasar un json con el parametro cod_ev
-        data = json.loads(request.body)
-        id = data['cod_env']
         try:
-            ev = Evaluacion.objects.get(cod_ev=id)
-            serializer = EvaluacionSerializer(ev)
+            ev = Evaluacion.objects.all()
+            serializer = EvaluacionSerializer(ev,many=True)
             return Response(serializer.data,status=status.HTTP_200_OK)
         except (ObjectDoesNotExist):
             return Response({'mensaje':'No se encuentra la evaluacion solicitada'})

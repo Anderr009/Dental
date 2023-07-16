@@ -4,6 +4,7 @@ from rest_framework import status
 from django.core.exceptions import ObjectDoesNotExist
 import json
 from API.serializers.ClientSerializer import BasicClient,ListClient
+from API.serializers.EvaluacionCliente import evaluacionCliente
 from API.models import Cliente
 #Vista para insertar un cliente o pedir su informacion completa
 @api_view(['GET','POST','PUT','DELETE'])
@@ -57,3 +58,13 @@ def BasicInfoClient(request,ced):
         serializer= BasicClient(cl)
         return Response(serializer.data,status=status.HTTP_200_OK)
     #-----------------------------------
+@api_view(['GET'])
+def EvaluacionesCliente(request,ced):
+    if request.method == 'GET':
+        try:
+            #obteniendo el cliente 
+            cl = Cliente.objects.get(cedula=ced)
+        except ObjectDoesNotExist:
+            return Response({'error':'Cliente no encontrado'},status=status.HTTP_404_NOT_FOUND)
+        serializer= evaluacionCliente(cl)
+        return Response(serializer.data,status=status.HTTP_200_OK)
