@@ -11,7 +11,7 @@ def procedEval(request):
         ev = Evaluacion.objects.get(cod_ev=data['cod_eval']['mensaje'])
         proc = Procedimiento.objects.get(cod_proced= data['cod_proc'])
         proced = Eval_Proced(cod_proc= proc,cod_eval = ev,pago_total = data['pago_total'],abono=data['abono'])
-        proced.save()
+        proced.save() 
         return Response({'mensaje':'creado'},status=status.HTTP_200_OK)
     
     if request.method == 'GET':
