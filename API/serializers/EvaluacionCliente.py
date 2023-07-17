@@ -7,4 +7,4 @@ class evaluacionCliente(serializers.ModelSerializer):
     evaluacion = EvaluacionSerializer(many=True, read_only=True, source='id')
     class Meta:
         model = Cliente
-        fields = ['id','cedula','nombres','apellido','evaluacion']
+        fields = ['id','cedula','nombres','direccion','sexo','edad','apellido','evaluacion']
